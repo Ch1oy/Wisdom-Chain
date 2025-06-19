@@ -1,0 +1,51 @@
+/* 倒计时样式 */
+.countdown-timer {
+  margin: 15px 0;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.countdown-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.countdown-value {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.countdown-item {
+  background: #4a90e2;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 45px;
+  text-align: center;
+}
+
+/* 当倒计时即将结束时（小于1天）的样式 */
+.countdown-timer.urgent .countdown-item {
+  background: #f5222d;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

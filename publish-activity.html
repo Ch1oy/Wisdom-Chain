@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发布活动 - 校内社团活动积分系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">
+        <img src="images/logo.png" alt="logo" class="logo">
+        智汇链
+      </a>
+      <div class="navbar-menu">
+        <a href="club-activity-manage.html" class="navbar-item">
+          <i class="ri-calendar-event-line"></i>
+          活动管理
+        </a>
+        <a href="publish-activity.html" class="navbar-item active">
+          <i class="ri-add-circle-line"></i>
+          发布新活动
+        </a>
+        <a href="my-activities.html" class="navbar-item">
+          <i class="ri-list-check"></i>
+          我的发布
+        </a>
+        <a href="registration-manage.html" class="navbar-item">
+          <i class="ri-user-add-line"></i>
+          报名管理
+        </a>
+        
+        <div class="user-profile">
+          <img src="images/default-avatar.png" alt="用户头像" class="avatar" id="userAvatar">
+          <span id="userName"></span>
+          <div class="dropdown-content">
+            <a href="edit-profile.html" id="editProfile">
+              <i class="ri-user-settings-line"></i>
+              编辑资料
+            </a>
+            <a href="change-password.html" id="changePassword">
+              <i class="ri-lock-password-line"></i>
+              修改密码
+            </a>
+            <a href="index.html" id="logout">
+              <i class="ri-logout-box-line"></i>
+              退出登录
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 主要内容 -->
+  <div class="container">
+    <!-- <div class="page-header card animate-fade-in">
+      <h1>发布新活动</h1>
+      <p>填写以下信息发布新的社团活动</p>
+    </div> -->
+
+    <div class="form-container card">
+      <form id="publishForm" class="publish-form">
+        <div class="form-section">
+          <h3>基本信息</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">活动名称</label>
+              <div class="input-group">
+                <i class="ri-edit-line"></i>
+                <input type="text" id="name" name="name" required placeholder="请输入活动名称">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="activityDate">活动时间</label>
+              <div class="input-group">
+                <i class="ri-calendar-line"></i>
+                <input type="datetime-local" id="activityDate" name="activityDate" required>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="location">活动地点</label>
+              <div class="input-group">
+                <i class="ri-map-pin-line"></i>
+                <input type="text" id="location" name="location" required placeholder="请输入活动地点">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="registrationDeadline">报名截止时间</label>
+              <div class="input-group">
+                <i class="ri-calendar-line"></i>
+                <input type="datetime-local" id="registrationDeadline" name="registrationDeadline" required>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="capacity">人数上限</label>
+              <div class="input-group">
+                <i class="ri-group-line"></i>
+                <input type="number" id="capacity" name="capacity" required min="1" placeholder="请输入人数上限">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="points">活动积分</label>
+              <div class="input-group">
+                <i class="ri-coins-line"></i>
+                <input type="number" id="points" name="points" required min="1" placeholder="请输入活动积分">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>活动详情</h3>
+          <div class="form-group">
+            <label for="description">活动描述</label>
+            <div class="input-group">
+              <i class="ri-file-text-line"></i>
+              <textarea id="description" name="description" required placeholder="请详细描述活动内容、流程和注意事项"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>活动封面</h3>
+          <div class="image-upload-container">
+            <div class="image-preview" id="imagePreview">
+              <img id="previewImage" src="" alt="活动封面预览"
+                style="width: 100%; height: 100%; object-fit: cover; display: none;">
+              <div class="upload-hint">
+                <i class="ri-upload-cloud-line upload-icon"></i>
+                <span>点击或拖拽上传图片</span>
+                <span class="upload-tip">支持JPG、PNG格式，大小不超过5MB</span>
+              </div>
+              <input type="file" id="image" name="image" class="image-input" accept="image/jpeg,image/png">
+            </div>
+            <div class="upload-progress" id="uploadProgress">
+              <div class="progress-bar">
+                <div class="progress-fill"></div>
+              </div>
+              <span class="progress-text">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="cancelBtn">
+            <i class="ri-close-line"></i>
+            取消
+          </button>
+          <button type="submit" class="btn btn-primary">
+            <i class="ri-send-plane-line"></i>
+            发布活动
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 提示框 -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/publish-activity.js"></script>
+</body>
+
+</html>

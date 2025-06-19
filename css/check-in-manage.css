@@ -1,0 +1,395 @@
+/* 页面布局 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* 页面标题 */
+.page-header {
+  margin-bottom: 20px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #333;
+  font-size: 24px;
+}
+
+.page-header p {
+  margin: 10px 0 0;
+  color: #666;
+}
+
+/* 筛选区域 */
+.filter-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-options {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-group label {
+  color: #666;
+  font-weight: 500;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.filter-btn:hover {
+  background: #f5f5f5;
+}
+
+.filter-btn.active {
+  background: #3498db;
+  color: #fff;
+  border-color: #3498db;
+}
+
+/* 活动网格 */
+.activities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* 活动卡片 */
+.activity-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.activity-card:hover {
+  transform: translateY(-5px);
+}
+
+.activity-header {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.activity-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.activity-status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.activity-status.ongoing {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.activity-status.ended {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.activity-info {
+  padding: 15px;
+}
+
+.activity-info p {
+  margin: 8px 0;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.activity-info i {
+  color: #999;
+}
+
+.activity-actions {
+  padding: 15px;
+  border-top: 1px solid #eee;
+  text-align: right;
+}
+
+/* 签到模态框 */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+}
+
+.modal h2 {
+  margin: 0 0 20px;
+  color: #333;
+  font-size: 20px;
+}
+
+/* 签到列表 */
+.check-in-list {
+  margin-bottom: 20px;
+}
+
+.check-in-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.3s;
+}
+
+.check-in-item:hover {
+  background-color: #f8f9fa;
+}
+
+.check-in-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.check-in-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.check-in-info h4 {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.check-in-info p {
+  margin: 4px 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* 复选框样式 */
+.checkbox-container {
+  display: inline-block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.checkbox-container:hover input~.checkmark {
+  border-color: #3498db;
+}
+
+.checkbox-container input:checked~.checkmark {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 8px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-container input:checked~.checkmark:after {
+  display: block;
+}
+
+/* 模态框操作按钮 */
+.modal-actions {
+  text-align: right;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+/* 结束时间输入区域 */
+.end-time-input {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.end-time-picker {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+  flex: 1;
+}
+
+.end-time-picker:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.update-end-time {
+  padding: 8px 16px;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.update-end-time:hover {
+  background: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.update-end-time i {
+  font-size: 16px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .filter-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .activities-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .end-time-input {
+    flex-direction: column;
+  }
+
+  .end-time-picker {
+    width: 100%;
+  }
+
+  .update-end-time {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.check-in-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-text {
+  font-size: 14px;
+  color: #666;
+}
+
+.status-text.checked-in {
+  color: #27ae60;
+}
+
+.points-info {
+  font-size: 14px;
+  color: #f39c12;
+  margin-top: 4px;
+}

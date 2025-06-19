@@ -1,0 +1,76 @@
+.prize-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.prize-item {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee;
+}
+
+.prize-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.prize-item img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin-bottom: 0.75rem;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.prize-item:hover img {
+  transform: scale(1.05);
+}
+
+.prize-name {
+  font-size: 0.9rem;
+  color: #333;
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+.probability-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  color: #666;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* 根据概率设置不同的背景色 */
+.prize-item[data-probability="legendary"] {
+  background: linear-gradient(135deg, #fff 0%, #fff5f5 100%);
+}
+
+.prize-item[data-probability="epic"] {
+  background: linear-gradient(135deg, #fff 0%, #f8f5ff 100%);
+}
+
+.prize-item[data-probability="rare"] {
+  background: linear-gradient(135deg, #fff 0%, #fff9f0 100%);
+}
+
+.prize-item[data-probability="uncommon"] {
+  background: linear-gradient(135deg, #fff 0%, #f0f7ff 100%);
+}
+
+.prize-item[data-probability="common"] {
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+}

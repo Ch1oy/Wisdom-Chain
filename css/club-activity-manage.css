@@ -1,0 +1,506 @@
+/* 社团活动管理页面样式 */
+.club-activity-manage {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 仪表盘容器样式 */
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(74, 144, 226, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), #4a90e2);
+  opacity: 0.8;
+}
+
+.dashboard-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle at center, rgba(74, 144, 226, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* 仪表盘头部 */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(74, 144, 226, 0.1);
+  position: relative;
+}
+
+.dashboard-header h2 {
+  font-size: 1.8rem;
+  color: var(--text-color);
+  font-weight: 600;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.dashboard-header h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 24px;
+  background: var(--primary-color);
+  border-radius: 2px;
+}
+
+/* 月份选择器样式 */
+#monthPicker {
+  padding: 0.8rem 1.2rem;
+  border: 1px solid rgba(74, 144, 226, 0.2);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+#monthPicker:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.1);
+}
+
+#monthPicker:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+}
+
+/* 仪表盘卡片网格 */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* 仪表盘卡片样式 */
+.dashboard-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.8rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(74, 144, 226, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.03) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-card:hover::before {
+  opacity: 1;
+}
+
+/* 卡片图标 */
+.card-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--primary-color), #4a90e2);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.8rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
+}
+
+.dashboard-card:hover .card-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* 卡片内容 */
+.card-content h3 {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+}
+
+.card-content p {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-color);
+  background: linear-gradient(135deg, var(--text-color), #666);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 图表容器网格 */
+.dashboard-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 1.5rem;
+}
+
+/* 图表容器样式 */
+.dashboard-charts .chart-container {
+  background: white;
+  border-radius: 12px;
+  padding: 1.8rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(74, 144, 226, 0.08);
+  transition: all 0.3s ease;
+}
+
+.dashboard-charts .chart-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-charts .chart-container h3 {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.dashboard-charts .chart-container h3::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: var(--primary-color);
+  border-radius: 2px;
+}
+
+/* 页面标题样式 */
+.page-title {
+  font-size: 1.8rem;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.page-title i {
+  color: var(--primary-color);
+  font-size: 2rem;
+}
+
+/* 活动卡片网格布局 */
+.activities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* 活动卡片样式 */
+.activity-card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.activity-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* 活动图片容器 */
+.activity-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.activity-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.activity-card:hover .activity-image img {
+  transform: scale(1.05);
+}
+
+/* 活动信息区域 */
+.activity-info {
+  padding: 1.5rem;
+}
+
+.activity-info h3 {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* 活动元信息 */
+.activity-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.activity-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: #666;
+  background: #f5f5f5;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+}
+
+.activity-meta i {
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+/* 活动描述 */
+.activity-description {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 活动操作按钮 */
+.activity-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+}
+
+.activity-actions .btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.activity-actions .btn-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.activity-actions .btn-primary:hover {
+  background: #357abd;
+}
+
+.activity-actions .btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+.activity-actions .btn-danger:hover {
+  background: #c82333;
+}
+
+.activity-actions .btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* 报名列表样式 */
+.registration-list {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  animation: slideDown 0.3s ease;
+}
+
+.registration-list h4 {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.registration-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.registration-table th,
+.registration-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.registration-table th {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+}
+
+.registration-table tr:last-child td {
+  border-bottom: none;
+}
+
+.registration-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* 无数据提示 */
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-style: italic;
+  background: #f9f9f9;
+  border-radius: var(--border-radius);
+  margin: 1rem 0;
+}
+
+/* 动画效果 */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .club-activity-manage {
+    padding: 1rem;
+  }
+
+  .activities-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-image {
+    height: 180px;
+  }
+
+  .activity-meta {
+    gap: 0.5rem;
+  }
+
+  .activity-meta span {
+    font-size: 0.8rem;
+  }
+
+  .activity-actions {
+    flex-direction: column;
+  }
+
+  .activity-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .registration-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .dashboard-container {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .dashboard-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-charts {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-charts .chart-container {
+    padding: 1.2rem;
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+  }
+
+  .card-content p {
+    font-size: 1.8rem;
+  }
+}

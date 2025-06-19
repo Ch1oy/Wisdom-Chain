@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>编辑资料 - 校内社团活动积分系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">
+        <img src="images/logo.png" alt="logo" class="logo">
+        智汇链
+      </a>
+      <div class="navbar-menu">
+        <a href="#" class="navbar-item" id="homeLink">
+          <i class="ri-home-line"></i>
+          首页
+        </a>
+        <a href="#" class="navbar-item" id="activitiesLink">
+          <i class="ri-calendar-event-line"></i>
+          活动列表
+        </a>
+        <div class="user-profile">
+          <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f600.svg" alt="用户头像" class="avatar"
+            id="userAvatar">
+          <span id="userName"></span>
+          <div class="dropdown-content">
+            <a href="#" id="editProfile" class="active">
+              <i class="ri-user-settings-line"></i>
+              编辑资料
+            </a>
+            <a href="#" id="changePassword">
+              <i class="ri-lock-password-line"></i>
+              修改密码
+            </a>
+            <a href="#" id="logout">
+              <i class="ri-logout-box-line"></i>
+              退出登录
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 主要内容 -->
+  <div class="container">
+    <div class="page-header card animate-fade-in">
+      <h1>编辑个人资料</h1>
+      <p>更新您的个人信息和头像</p>
+    </div>
+
+    <div class="profile-container">
+      <!-- 头像编辑区域 -->
+      <div class="avatar-edit-section card">
+        <div class="avatar-preview">
+          <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f600.svg" alt="用户头像"
+            id="avatarPreview">
+          <div class="avatar-overlay">
+            <i class="ri-camera-line"></i>
+            <span>更换头像</span>
+          </div>
+          <input type="file" id="avatarInput" accept="image/*" class="avatar-input">
+        </div>
+        <div class="avatar-upload-progress" id="avatarUploadProgress">
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+          <span class="progress-text">0%</span>
+        </div>
+        <div class="avatar-tips">
+          <p>支持JPG、PNG格式，大小不超过2MB</p>
+          <p>建议使用正方形图片，尺寸不小于200x200像素</p>
+        </div>
+      </div>
+
+      <!-- 个人信息表单 -->
+      <div class="profile-form-section card">
+        <form id="profileForm" class="profile-form">
+          <div class="form-section">
+            <h3>基本信息</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="username">账号</label>
+                <div class="input-group">
+                  <i class="ri-user-line"></i>
+                  <input type="text" id="username" name="username" readonly placeholder="账号不可修改">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name">姓名</label>
+                <div class="input-group">
+                  <i class="ri-user-smile-line"></i>
+                  <input type="text" id="name" name="name" required placeholder="请输入姓名">
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="gender">性别</label>
+                <div class="input-group">
+                  <i class="ri-user-heart-line"></i>
+                  <select id="gender" name="gender" required>
+                    <option value="">请选择性别</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="college">学院</label>
+                <div class="input-group">
+                  <i class="ri-building-line"></i>
+                  <input type="text" id="college" name="college" required placeholder="请输入学院">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>联系方式</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">手机号码</label>
+                <div class="input-group">
+                  <i class="ri-phone-line"></i>
+                  <input type="tel" id="phone" name="phone" required placeholder="请输入手机号码">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email">电子邮箱</label>
+                <div class="input-group">
+                  <i class="ri-mail-line"></i>
+                  <input type="email" id="email" name="email" required placeholder="请输入电子邮箱">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>个人简介</h3>
+            <div class="form-group">
+              <label for="bio">个人简介</label>
+              <div class="input-group">
+                <i class="ri-file-text-line"></i>
+                <textarea id="bio" name="bio" placeholder="请简要介绍自己，不超过200字"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" id="cancelBtn">
+              <i class="ri-close-line"></i>
+              取消
+            </button>
+            <button type="submit" class="btn btn-primary">
+              <i class="ri-save-line"></i>
+              保存修改
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 提示框 -->
+  <div class="toast" id="toast"></div>
+
+  <!-- 加载动画 -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/edit-profile.js"></script>
+</body>
+
+</html>

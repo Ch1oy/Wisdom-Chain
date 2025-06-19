@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>幸运抽奖</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/content.css">
+  <style>
+    .draw-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-content {
+      padding: 2rem 0;
+      min-height: calc(100vh - 60px);
+      background-color: #f8f9fa;
+    }
+
+    .draw-area {
+      text-align: center;
+      margin: 2.5rem 0 2rem 0;
+      padding: 3rem 0;
+      border-radius: 32px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e3f0ff 100%);
+      box-shadow: 0 8px 32px 0 rgba(80, 120, 255, 0.10),
+        0 1.5px 8px 0 rgba(80, 120, 255, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .draw-area::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.8) 50%,
+          rgba(255, 255, 255, 0) 100%);
+    }
+
+    .draw-area:hover {
+      box-shadow: 0 16px 48px 0 rgba(80, 120, 255, 0.18),
+        0 2px 16px 0 rgba(80, 120, 255, 0.12),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .prize-display {
+      width: 320px;
+      height: 320px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+      border-radius: 24px;
+      backdrop-filter: none;
+      box-shadow: none;
+    }
+
+    .prize-display canvas {
+      filter: drop-shadow(0 8px 16px rgba(80, 120, 255, 0.2));
+    }
+
+    .draw-btn {
+      margin-top: 2.5rem;
+      padding: 1rem 3.5rem;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+      border: none;
+      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+      transition: all 0.3s ease;
+      color: white;
+    }
+
+    .draw-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+      background: linear-gradient(135deg, #5a9fe2 0%, red 100%);
+    }
+
+    .draw-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+      background: linear-gradient(135deg, #3a80d2 0%, #256aad 100%);
+    }
+
+    #drawHint {
+      font-size: 1.1rem;
+      color: #666;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    .result-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .result-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .result-content img {
+      max-width: 200px;
+      max-height: 200px;
+      margin: 1rem 0;
+    }
+
+    .draw-history {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .draw-history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .draw-history-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+    }
+
+    .draw-count {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      background: #e3f0ff;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: #4a90e2;
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid #dee2e6;
+      transition: background-color 0.2s;
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    .history-item:hover {
+      background-color: #f0f4f8;
+    }
+
+    .history-item img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      margin-right: 1rem;
+      border-radius: 8px;
+      background: white;
+      padding: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+  <style>
+    /* Temporary styles for debugging */
+    #toast {
+      z-index: 10000 !important;
+      background-color: red !important;
+      color: white !important;
+      border: 5px solid yellow !important;
+      bottom: 50% !important;
+      /* Center vertically */
+      transform: translate(-50%, 50%) !important;
+      /* Center vertically and horizontally */
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <div class="main-content">
+    <div class="container">
+      <div class="draw-container">
+        <h2 class="text-center mb-4">幸运抽奖</h2>
+        <div class="points-summary" style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+          <div class="points-card"
+            style="display: flex; align-items: center; gap: 10px; background: #f8fafc; border-radius: 8px; padding: 10px 24px; box-shadow: 0 2px 8px rgba(80,120,255,0.08);">
+            <i class="ri-coins-line" style="font-size: 1.5rem; color: #f7b500;"></i>
+            <span class="points-label" style="font-size: 1rem; color: #666;">当前积分</span>
+            <span class="points-value" id="currentPoints"
+              style="font-size: 1.3rem; font-weight: bold; color: #f7b500; margin-left: 8px;">0</span>
+          </div>
+          <button id="showPrizePoolBtn" class="btn btn-secondary"
+            style="display: flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: 8px; background: linear-gradient(135deg, #7fb1e8 0%, #5a9de0 100%); color: white; border: none; box-shadow: 0 2px 8px rgba(127,177,232,0.2); transition: all 0.3s ease;">
+            <i class="ri-gift-line"></i> 查看奖池
+          </button>
+        </div>
+
+        <div class="draw-area">
+          <div class="prize-display" id="prizeDisplay">
+            <canvas id="box3dCanvas" width="200" height="200" style="display:none;"></canvas>
+            <span class="text-muted" id="drawHint">点击抽奖按钮开始</span>
+          </div>
+          <div class="draw-actions">
+            <button id="startDrawBtn" class="btn btn-primary">
+              <i class="ri-dice-line"></i> 开始抽奖/20积分
+            </button>
+          </div>
+        </div>
+
+        <div class="draw-history">
+          <div class="draw-history-header">
+            <h4 class="draw-history-title">
+              <i class="ri-history-line"></i>
+              抽奖记录
+              <span class="draw-count">
+                <i class="ri-gift-line"></i>
+                已抽奖 <span id="drawCount">0</span> 次
+              </span>
+            </h4>
+          </div>
+          <div id="drawHistory"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 奖池模态框 -->
+  <div id="prizePoolModal" class="modal">
+    <div class="modal-content"
+      style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto;">
+      <div class="modal-header"
+        style="padding: 1.5rem; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="margin: 0; font-size: 1.5rem; color: #333;">奖池内容</h2>
+        <button class="close"
+          style="background: none; border: none; font-size: 1.5rem; color: #666; cursor: pointer; padding: 0.5rem;">&times;</button>
+      </div>
+      <div class="modal-body" id="prizePoolContent" style="padding: 1.5rem;">
+        <div class="prize-grid">
+          <!-- 奖池内容将由JavaScript填充，格式如下：
+          <div class="prize-item rarity-legendary">
+            <img src="奖品图片路径" alt="奖品名称">
+            <div class="prize-name">奖品名称</div>
+            <div class="probability-badge">概率: 0.1%</div>
+          </div>
+          -->
+        </div>
+      </div>
+      <div class="modal-actions" style="padding: 1rem 1.5rem; border-top: 1px solid #eee; text-align: right;">
+        <button class="btn btn-secondary close-modal"
+          style="background: linear-gradient(135deg, #7fb1e8 0%, #5a9de0 100%); color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 抽奖结果模态框 -->
+  <div class="result-modal" id="resultModal">
+    <div class="result-content">
+      <h3>恭喜您获得</h3>
+      <div id="resultImage"></div>
+      <h4 id="resultName"></h4>
+      <button class="btn btn-primary mt-3" onclick="closeResultModal()">确定</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js';
+    window.THREE = THREE;
+  </script>
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/draw.js"></script>
+</body>
+
+</html>

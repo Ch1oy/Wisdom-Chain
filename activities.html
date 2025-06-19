@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活动列表 - 校园社团活动积分系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/activity-countdown.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">
+        <img src="images/logo.png" alt="logo" class="logo">
+        智汇链
+      </a>
+      <div class="navbar-menu">
+        <a href="#" class="navbar-item" id="homeLink">
+          <i class="ri-home-line"></i>
+          首页
+        </a>
+        <a href="#" class="navbar-item" id="myPointsLink">
+          <i class="ri-coins-line"></i>
+          我的积分
+        </a>
+        <div class="user-profile">
+          <img src="images/default-avatar.png" alt="用户头像" class="avatar" id="userAvatar">
+          <span id="userName"></span>
+          <div class="dropdown-content">
+            <a href="edit-profile.html" id="editProfile">
+              <i class="ri-user-settings-line"></i>
+              编辑资料
+            </a>
+            <a href="change-password.html" id="changePassword">
+              <i class="ri-lock-password-line"></i>
+              修改密码
+            </a>
+            <a href="index.html" id="logout">
+              <i class="ri-logout-box-line"></i>
+              退出登录
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- <div class="page-header card animate-fade-in">
+      <h1>活动列表</h1>
+      <p>发现并参与精彩的社团活动</p>
+    </div> -->
+
+    <div class="filter-section card">
+      <div class="search-box">
+        <div class="input-group">
+          <i class="ri-search-line"></i>
+          <input type="text" id="searchInput" placeholder="搜索活动名称、描述或社团...">
+          <button id="clearSearchBtn" type="button"
+            style="display:none;position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:20px;color:#aaa;cursor:pointer;">×</button>
+        </div>
+      </div>
+      <div class="filter-options">
+        <div class="filter-group">
+          <label>活动状态：</label>
+          <div class="filter-buttons">
+            <button class="filter-btn active" data-status="all">全部</button>
+            <button class="filter-btn" data-status="ongoing">进行中</button>
+            <button class="filter-btn" data-status="ended">已结束</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="activities-grid" id="activitiesGrid">
+      <!-- 活动卡片将通过JavaScript动态添加 -->
+    </div>
+
+    <div class="load-more-container">
+      <button class="btn btn-secondary" id="loadMoreBtn">
+        <i class="ri-add-line"></i>
+        加载更多
+      </button>
+    </div>
+  </div>
+
+  <!-- <div class="modal" id="activityModal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <div id="activityDetails"></div>
+    </div>
+  </div> -->
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/activities.js"></script>
+</body>
+
+</html>

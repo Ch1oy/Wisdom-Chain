@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>积分历史 - 校内社团活动积分系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <main class="container">
+    <div class="points-summary-container">
+      <div class="points-summary-card card">
+        <div class="points-summary-header">
+          <i class="ri-coins-line"></i>
+          <h2>积分概览</h2>
+        </div>
+        <div class="summary-values">
+          <div class="summary-item">
+            <span class="summary-label">当前积分</span>
+            <span class="summary-value" id="currentPoints">0</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">总获得积分</span>
+            <span class="summary-value earned" id="totalEarnedPoints">0</span>
+          </div>
+        </div>
+      </div>
+      <div class="points-stats-grid">
+        <div class="points-stat-card card">
+          <div class="stat-icon">
+            <i class="ri-arrow-up-line"></i>
+          </div>
+          <div class="stat-info">
+            <h3 id="monthlyPointsLabel">本月获得</h3>
+            <p id="monthlyEarned">0</p>
+          </div>
+        </div>
+        <div class="points-stat-card card">
+          <div class="stat-icon">
+            <i class="ri-calendar-check-line"></i>
+          </div>
+          <div class="stat-info">
+            <h3>参与活动</h3>
+            <p id="totalActivities">0</p>
+          </div>
+        </div>
+        <div class="points-stat-card card">
+          <div class="stat-icon">
+            <i class="ri-trophy-line"></i>
+          </div>
+          <div class="stat-info">
+            <h3>最高单次</h3>
+            <p id="highestPoints">0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-section card">
+      <div class="filter-options">
+        <div class="filter-group">
+          <label>时间范围：</label>
+          <div class="filter-buttons">
+            <button class="filter-btn active" data-range="all">全部</button>
+            <button class="filter-btn" data-range="month">本月</button>
+            <button class="filter-btn" data-range="quarter">本季度</button>
+            <button class="filter-btn" data-range="year">本年</button>
+          </div>
+        </div>
+        <div class="filter-group">
+          <label>积分类型：</label>
+          <div class="filter-buttons">
+            <button class="filter-btn active" data-type="all">全部</button>
+            <button class="filter-btn" data-type="earned">获得</button>
+            <button class="filter-btn" data-type="spent">消费</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="points-history-container card">
+      <div class="points-history-header">
+        <h2>积分记录</h2>
+        <div class="points-history-actions">
+
+        </div>
+      </div>
+      <div class="points-history-list" id="pointsHistoryList">
+        <!-- 积分记录将通过JavaScript动态添加 -->
+      </div>
+      <div class="load-more-container">
+        <button class="btn btn-secondary" id="loadMoreBtn">
+          <i class="ri-add-line"></i>
+          加载更多
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- 加载动画 -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // 检查是否已登录
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      if (!userInfo) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      // 更新用户信息显示
+      const userNameElement = document.getElementById('userName');
+      if (userNameElement) {
+        userNameElement.textContent = userInfo.username;
+      }
+
+      const userAvatar = document.getElementById('userAvatar');
+      if (userAvatar) {
+        const users = JSON.parse(localStorage.getItem('users')) || {};
+        const userDetails = users[userInfo.username] || {};
+        if (userDetails.avatar) {
+          userAvatar.src = userDetails.avatar;
+        }
+      }
+
+      // 加载积分数据
+      loadPointsData();
+
+      // 处理筛选按钮点击事件
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          // 移除所有按钮的active类
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          // 为当前点击的按钮添加active类
+          this.classList.add('active');
+
+          // 更新本月获得/消耗标签
+          const monthlyPointsLabel = document.getElementById('monthlyPointsLabel');
+          if (monthlyPointsLabel) {
+            if (this.dataset.type === 'spent') {
+              monthlyPointsLabel.textContent = '本月消耗';
+            } else {
+              monthlyPointsLabel.textContent = '本月获得';
+            }
+          }
+
+          // 重新加载积分记录
+          loadPointsData(this.dataset.range, this.dataset.type);
+        });
+      });
+    });
+
+    let allPointsHistory = [];
+    let displayedCount = 3;
+
+    function loadPointsData(range = 'all', type = 'all') {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      const activities = JSON.parse(localStorage.getItem('activities')) || [];
+
+      // 从所有活动的checkIns数组中获取当前用户的签到记录
+      let userPointsHistory = [];
+      let totalPoints = 0;  // 用于计算当前总积分 (获得+消耗)
+      let totalEarnedPoints = 0; // 用于计算总获得积分 (只获得)
+      let totalSpentPoints = 0; // 用于计算总消耗积分 (只消耗)
+
+      activities.forEach(activity => {
+        if (activity.checkIns && Array.isArray(activity.checkIns)) {
+          activity.checkIns.forEach(checkIn => {
+            if (checkIn.username === userInfo.username) {
+              // 检查日期和类型筛选条件
+              const recordDate = new Date(checkIn.checkInTime);
+              let passesDateFilter = true;
+              if (range !== 'all') {
+                const startDate = new Date();
+                if (range === 'month') { startDate.setMonth(startDate.getMonth() - 1); }
+                else if (range === 'quarter') { startDate.setMonth(startDate.getMonth() - 3); }
+                else if (range === 'year') { startDate.setFullYear(startDate.getFullYear() - 1); }
+                passesDateFilter = recordDate >= startDate;
+              }
+
+              let passesTypeFilter = true;
+              if (type !== 'all') {
+                if (type === 'earned') passesTypeFilter = activity.points > 0;
+                if (type === 'spent') passesTypeFilter = activity.points < 0;
+              }
+
+              // 累加总积分
+              totalPoints += activity.points || 0;
+              if ((activity.points || 0) > 0) {
+                totalEarnedPoints += activity.points || 0;
+              }
+              if ((activity.points || 0) < 0) {
+                totalSpentPoints += activity.points || 0;
+              }
+
+              if (passesDateFilter && passesTypeFilter) {
+                userPointsHistory.push({
+                  activityId: activity.id,
+                  activityName: activity.name,
+                  date: checkIn.checkInTime, // 使用checkIn对象中的时间
+                  points: activity.points,  // 使用活动本身的积分值
+                  checkInStatus: 'checked'
+                });
+              }
+            }
+          });
+        }
+      });
+
+      // 更新当前积分显示
+      const currentPointsElement = document.getElementById('currentPoints');
+      if (currentPointsElement) {
+        currentPointsElement.textContent = totalPoints;
+      }
+
+      // 更新总获得积分显示
+      const totalEarnedPointsElement = document.getElementById('totalEarnedPoints');
+      if (totalEarnedPointsElement) {
+        totalEarnedPointsElement.textContent = totalEarnedPoints;
+      }
+
+      // 计算统计数据
+      const now = new Date();
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+      const monthlyEarned = userPointsHistory
+        .filter(record => new Date(record.date) >= monthStart && record.points > 0)
+        .reduce((sum, record) => sum + record.points, 0);
+
+      const monthlySpent = userPointsHistory
+        .filter(record => new Date(record.date) >= monthStart && record.points < 0)
+        .reduce((sum, record) => sum + record.points, 0);
+
+      const totalActivities = userPointsHistory.length;
+      // 计算最高单次获得积分
+      const highestEarned = Math.max(...userPointsHistory.filter(record => record.points > 0).map(record => record.points), 0);
+      // 计算最高单次消耗积分 (取绝对值)
+      const highestSpent = Math.max(...userPointsHistory.filter(record => record.points < 0).map(record => Math.abs(record.points)), 0);
+
+      // 更新统计数据
+      document.getElementById('monthlyEarned').textContent = monthlyEarned;
+      document.getElementById('totalActivities').textContent = totalActivities;
+      document.getElementById('highestPoints').textContent = highestEarned;
+
+      // 更新统计数据
+      const monthlyPointsElement = document.getElementById('monthlyEarned');
+      const activeTypeButton = document.querySelector('.filter-btn[data-type].active');
+      const currentFilterType = activeTypeButton ? activeTypeButton.dataset.type : 'all';
+
+      if (monthlyPointsElement) {
+        if (currentFilterType === 'spent') {
+          // 显示本月消耗的绝对值
+          monthlyPointsElement.textContent = Math.abs(monthlySpent);
+        } else {
+          // 显示本月获得
+          monthlyPointsElement.textContent = monthlyEarned;
+        }
+      }
+
+      // 更新最高单次显示
+      const highestPointsElement = document.getElementById('highestPoints');
+      if (highestPointsElement) {
+        if (currentFilterType === 'spent') {
+          highestPointsElement.textContent = highestSpent;
+        } else {
+          highestPointsElement.textContent = highestEarned;
+        }
+      }
+
+      // 按日期排序（最新的在前）
+      userPointsHistory.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      // 将完整的历史记录存储到allPointsHistory变量
+      allPointsHistory = userPointsHistory;
+      // 重置已显示数量
+      displayedCount = 3;
+
+      // 显示前几条记录
+      displayPointsHistory();
+    }
+
+    function displayPointsHistory() {
+      const historyList = document.getElementById('pointsHistoryList');
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+      if (!historyList) return;
+
+      if (allPointsHistory.length === 0) {
+        historyList.innerHTML = '<div class="no-data">暂无积分记录</div>';
+        loadMoreBtn.style.display = 'none';
+        return;
+      }
+
+      // 如果总记录数小于等于3，也隐藏加载更多按钮
+      if (allPointsHistory.length <= 3) {
+        loadMoreBtn.style.display = 'none';
+      } else {
+        loadMoreBtn.style.display = 'block'; // 确保在记录多于3条时显示
+      }
+
+      // 获取当前需要显示的记录
+      const recordsToDisplay = allPointsHistory.slice(0, displayedCount);
+
+      historyList.innerHTML = recordsToDisplay.map(record => {
+        const date = new Date(record.date);
+        const formattedDate = date.toLocaleDateString('zh-CN', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+
+        const pointsClass = record.points > 0 ? 'positive' : 'negative';
+        const pointsPrefix = record.points > 0 ? '+' : '';
+        const checkInStatus = record.checkInStatus === 'checked' ? '已签到' : '未签到';
+
+        return `
+          <div class="history-item">
+            <div class="history-info">
+              <h3>${record.activityName}</h3>
+              <p class="date">${formattedDate}</p>
+              <p class="status">${checkInStatus}</p>
+            </div>
+            <div class="history-points ${pointsClass}">
+              ${pointsPrefix}${record.points}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // 为加载更多按钮添加点击事件监听器
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function () {
+          // 增加显示数量
+          displayedCount += 3; // 每次加载3条
+          // 显示更多记录
+          displayPointsHistory();
+        });
+      }
+    }
+  </script>
+</body>
+
+</html>

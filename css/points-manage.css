@@ -1,0 +1,336 @@
+/* 积分管理页面样式 */
+.points-manage {
+  padding: 2rem;
+}
+
+.points-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.points-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.points-card h3 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.points-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.points-trend {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem !important;
+}
+
+.chart-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3rem !important;
+  align-items: flex-start !important;
+  flex-wrap: wrap !important;
+  height: 100%;
+}
+
+.points-trend h3 {
+  margin: 0 !important;
+  color: #333;
+}
+
+/* 添加间距在日期选择和趋势图之间 */
+.chart-header {
+  /* 包含标题和日期选择 */
+  display: flex !important;
+  flex-direction: column !important;
+  /* 标题和日期选择上下排列 */
+  align-items: flex-start !important;
+  /* 标题和日期选择左对齐 */
+  margin: 0 !important;
+  padding: 0 !important;
+  /* flex-basis, flex-shrink 等在父容器 column 时通常不直接用于控制高度 */
+  flex-basis: auto !important;
+  flex-shrink: 0 !important;
+}
+
+.chart-controls {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 1rem !important;
+  align-items: center !important;
+  margin-top: 1rem !important;
+}
+
+.chart-controls .form-control {
+  width: auto !important;
+  /* 让下拉框宽度根据内容自适应 */
+  padding: 0.5rem 1rem !important;
+  /* 调整内边距 */
+  border: 1px solid #ddd !important;
+  /* 设置边框 */
+  border-radius: 25px !important;
+  /* 增加圆角 */
+  font-size: 1rem !important;
+  background-color: white !important;
+  /* 设置背景颜色 */
+  color: #333 !important;
+  /* 设置文字颜色 */
+  /* 可能需要调整箭头样式，但这通常比较复杂 */
+  appearance: none !important;
+  /* 尝试移除默认箭头 */
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.362%22%20height%3D%22292.362%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287.9%2C133.1l-112.4-112.4C172.8%2C16.5%2C168.7%2C15%2C164.5%2C15s-8.3%2C1.6-11.4%2C4.7l-112%2C112c-6.2%2C6.2-6.2%2C16.4%2C0%2C22.6l112.3%2C112.3c6.2%2C6.2%2C16.4%2C6.2%2C22.6%2C0l112.4-112.4C294.1%2C149.5%2C294.1%2C139.3%2C287.9%2C133.1z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  background-size: 12px;
+}
+
+.violation-section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.violation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.violation-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.violation-item {
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.violation-item-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.violation-type {
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.violation-date {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.violation-description {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.violation-points {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.report-section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.report-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.report-content {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+/* 按钮样式 */
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background: #545b62;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #c82333;
+}
+
+/* 表单样式 */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  width: auto !important;
+  padding: 0.5rem !important;
+  border: 1px solid #ddd !important;
+  border-radius: 4px !important;
+  font-size: 1rem !important;
+}
+
+#pointsTrendChart {
+  /* 在父容器 flex-direction: column 时，flex-grow 控制高度增长 */
+  flex-grow: 1 !important;
+  /* 如果希望图表占据剩余高度 */
+  max-width: 100% !important;
+  /* 确保图表不会超出容器宽度 */
+  margin-top: 80px !important;
+  /* 增加顶部外边距，将图表向下推，避免与上方元素重叠 */
+  min-width: 600px !important;
+  /* 增加顶部外边距，将图表向下推，避免与上方元素重叠 */
+  /* min-height: 300px; 可以根据需要设置最小高度 */
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .points-manage {
+    padding: 1rem;
+  }
+
+  .points-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .report-filters {
+    flex-direction: column;
+  }
+}
+
+/* 模态框样式 */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal.active {
+  display: block;
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #333;
+}
+
+.close {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #666;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.close:hover {
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}

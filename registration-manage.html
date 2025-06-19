@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>报名管理 - 校园社团活动积分系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/registration.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">
+        <img src="images/logo.png" alt="logo" class="logo">
+        智汇链
+      </a>
+      <div class="navbar-menu">
+        <a href="club-activity-manage.html" class="navbar-item">
+          <i class="ri-calendar-event-line"></i>
+          活动管理
+        </a>
+        <a href="publish-activity.html" class="navbar-item">
+          <i class="ri-add-circle-line"></i>
+          发布新活动
+        </a>
+        <a href="my-activities.html" class="navbar-item">
+          <i class="ri-list-check"></i>
+          我的发布
+        </a>
+        <a href="registration-manage.html" class="navbar-item active">
+          <i class="ri-user-add-line"></i>
+          报名管理
+        </a>
+
+        <div class="user-profile">
+          <img src="images/default-avatar.png" alt="用户头像" class="avatar" id="userAvatar">
+          <span id="userName"></span>
+          <div class="dropdown-content">
+            <a href="edit-profile.html" id="editProfile">
+              <i class="ri-user-settings-line"></i>
+              编辑资料
+            </a>
+            <a href="change-password.html" id="changePassword">
+              <i class="ri-lock-password-line"></i>
+              修改密码
+            </a>
+            <a href="index.html" id="logout">
+              <i class="ri-logout-box-line"></i>
+              退出登录
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="registration-manage">
+      <div class="activity-list" id="registrationActivities">
+        <!-- 报名管理列表将通过JavaScript动态加载 -->
+      </div>
+    </div>
+  </main>
+
+  <script src="js/registration-manage.js"></script>
+</body>
+
+</html>

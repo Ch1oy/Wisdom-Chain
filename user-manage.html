@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用户管理 - 校园社团活动积分系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/user-manage.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">
+        <img src="images/logo.png" alt="logo" class="logo">
+        智汇链
+      </a>
+      <div class="navbar-menu">
+        <a href="admin-review.html" class="navbar-item">
+          <i class="ri-check-double-line"></i>
+          活动审核
+        </a>
+        <a href="user-manage.html" class="navbar-item active">
+          <i class="ri-user-settings-line"></i>
+          用户管理
+        </a>
+        <a href="points-manage.html" class="navbar-item">
+          <i class="ri-coins-line"></i>
+          积分管理
+        </a>
+        <div class="user-profile">
+          <img src="images/default-avatar.png" alt="用户头像" class="avatar" id="userAvatar">
+          <span id="userName"></span>
+          <div class="dropdown-content">
+            <a href="edit-profile.html" id="editProfile">
+              <i class="ri-user-settings-line"></i>
+              编辑资料
+            </a>
+            <a href="change-password.html" id="changePassword">
+              <i class="ri-lock-password-line"></i>
+              修改密码
+            </a>
+            <a href="index.html" id="logout">
+              <i class="ri-logout-box-line"></i>
+              退出登录
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="user-management">
+      <!-- 用户筛选 -->
+      <div class="filter-section">
+        <select id="roleFilter">
+          <option value="all">所有用户</option>
+          <option value="student">学生用户</option>
+          <option value="clubLeader">社团负责人</option>
+        </select>
+        <input type="text" id="searchInput" placeholder="搜索用户...">
+        <button id="clearSearchBtn" class="clear-search-btn" title="清除搜索">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+
+      <!-- 用户列表 -->
+      <div class="user-list" id="userList">
+        <!-- 用户列表将通过JavaScript动态添加 -->
+      </div>
+
+      <!-- 分页控件 -->
+      <div class="pagination" id="pagination">
+        <button id="prevPage" class="pagination-btn">
+          <i class="ri-arrow-left-s-line"></i>
+          上一页
+        </button>
+        <span id="pageInfo">第 <span id="currentPage">1</span> 页，共 <span id="totalPages">1</span> 页</span>
+        <button id="nextPage" class="pagination-btn">
+          下一页
+          <i class="ri-arrow-right-s-line"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 用户详情模态框 -->
+  <div id="userModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>用户详情</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div id="userDetails">
+        <!-- 用户详情将通过JavaScript动态添加 -->
+      </div>
+      <div class="user-actions">
+        <button id="resetPasswordBtn" class="btn btn-warning">重置密码</button>
+        <button id="toggleStatusBtn" class="btn btn-danger">禁用/启用</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 用户权限管理模态框 -->
+  <div id="permissionModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>权限管理</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="permissionForm">
+          <div class="form-group">
+            <label>用户名</label>
+            <input type="text" id="permUsername" readonly>
+          </div>
+          <div class="form-group">
+            <label>角色</label>
+            <input type="text" id="permRole" readonly>
+          </div>
+          <div class="form-group">
+            <label>权限设置</label>
+            <div class="permissions-group">
+              <div class="permission-item">
+                <input type="checkbox" id="perm_activity" name="permissions">
+                <label for="perm_activity">活动管理</label>
+              </div>
+              <div class="permission-item">
+                <input type="checkbox" id="perm_points" name="permissions">
+                <label for="perm_points">积分管理</label>
+              </div>
+              <div class="permission-item">
+                <input type="checkbox" id="perm_user" name="permissions">
+                <label for="perm_user">用户管理</label>
+              </div>
+              <div class="permission-item">
+                <input type="checkbox" id="perm_club" name="permissions">
+                <label for="perm_club">社团管理</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">保存权限</button>
+            <button type="button" class="btn btn-secondary" id="cancelPermBtn">取消</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/user-manage.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+/* 筛选按钮组样式 */
+.anniu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.8rem;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.anniu .btn {
+  position: relative;
+  padding: 0.5rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+  background: #f0f0f0;
+  color: #666;
+  border: 1px solid #ccc;
+  white-space: nowrap;
+  justify-content: center;
+}
+
+.anniu .btn i {
+  font-size: 1rem;
+}
+
+/* 移除数量显示样式 */
+
+.anniu .btn:hover {
+  color: #4a90e2;
+  background: rgba(74, 144, 226, 0.1);
+}
+
+.anniu .btn.active {
+  background: #4a90e2;
+  /* 蓝色背景 */
+  color: white;
+  border: none;
+  /* 移除边框 */
+}
+
+/* 移除激活状态下数量显示样式 */
+
+/* 移除 ID 选择器的数量样式 */
+
+/* 移除 ID 选择器的激活状态下数量样式 */
+
+.anniu .btn:active {
+  transform: scale(0.98);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .anniu {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* 添加动画效果 */
+@keyframes buttonPop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.98);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.anniu .btn.active {
+  animation: buttonPop 0.2s ease;
+}
+
+/* 使用ID进一步确保样式应用 */
+#btnAllActivities,
+#btnSignedActivities,
+#btnUnsignedActivities {
+  /* 继承 .anniu .btn 的基本样式，但可以根据需要覆盖 */
+  padding: 0.5rem 1rem;
+  /* 调整内边距，使其大小适中 */
+  /* 其他可能需要的样式调整 */
+}

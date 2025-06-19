@@ -1,0 +1,229 @@
+/* 积分奖池页面样式 */
+
+/* 奖池管理页面样式 */
+
+.prize-management-container {
+  padding: 30px;
+  /* text-align: center; */
+  /* 移除或修改文本对齐，适应表格布局 */
+}
+
+/* 管理页面的头部和按钮 */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+/* 奖品列表表格 */
+.prize-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.prize-table th,
+.prize-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.prize-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  color: #555;
+}
+
+.prize-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.prize-table tbody tr:hover {
+  background-color: #e9e9e9;
+}
+
+.prize-table img {
+  width: 50px;
+  /* 奖品图片在表格中的大小 */
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.prize-table .actions button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+}
+
+/* 模态框样式 */
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  /* 半透明背景 */
+  display: flex;
+  /* 使用 flex 居中内容 */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  /* 垂直居中 */
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  /* 最大宽度 */
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.modal-body .form-group {
+  margin-bottom: 15px;
+}
+
+.modal-body label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.modal-body input[type="text"],
+.modal-body input[type="number"],
+.modal-body input[type="file"] {
+  width: calc(100% - 24px);
+  /* 考虑padding */
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.modal-body input[type="file"] {
+  padding: 10px 0;
+}
+
+#imagePreview img {
+  max-width: 100px;
+  height: auto;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.modal-body .form-actions {
+  margin-top: 25px;
+  text-align: right;
+}
+
+.modal-body .form-actions button {
+  margin-left: 10px;
+}
+
+.close-btn {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .prize-management-container {
+    padding: 20px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .section-header button {
+    margin-top: 10px;
+  }
+
+  .prize-table th,
+  .prize-table td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .prize-table img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .prize-table .actions button {
+    margin-right: 3px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+
+  .modal-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .modal-body label {
+    font-size: 0.9rem;
+  }
+
+  .modal-body input[type="text"],
+  .modal-body input[type="number"],
+  .modal-body input[type="file"] {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  .modal-body input[type="file"] {
+    padding: 8px 0;
+  }
+
+  .modal-body .form-actions button {
+    margin-left: 5px;
+  }
+}

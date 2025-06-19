@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活动审核 - 校园社团活动积分系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin-review.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">
+        <img src="images/logo.png" alt="logo" class="logo">
+        智汇链
+      </a>
+      <div class="navbar-menu">
+        <a href="admin-review.html" class="navbar-item active">
+          <i class="ri-check-double-line"></i>
+          活动审核
+        </a>
+        <a href="user-manage.html" class="navbar-item">
+          <i class="ri-user-settings-line"></i>
+          用户管理
+        </a>
+        <a href="points-manage.html" class="navbar-item">
+          <i class="ri-coins-line"></i>
+          积分管理
+        </a>
+        <div class="user-profile">
+          <img src="images/default-avatar.png" alt="用户头像" class="avatar" id="userAvatar">
+          <span id="userName"></span>
+          <div class="dropdown-content">
+            <a href="edit-profile.html" id="editProfile">
+              <i class="ri-user-settings-line"></i>
+              编辑资料
+            </a>
+            <a href="change-password.html" id="changePassword">
+              <i class="ri-lock-password-line"></i>
+              修改密码
+            </a>
+            <a href="index.html" id="logout">
+              <i class="ri-logout-box-line"></i>
+              退出登录
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <div class="filter-section">
+      <div class="filter-group">
+        <label for="statusFilter">活动状态：</label>
+        <select id="statusFilter">
+          <option value="all">全部</option>
+          <option value="pending">待审核</option>
+          <option value="approved">已通过</option>
+          <option value="rejected">已拒绝</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="sortFilter">排序方式：</label>
+        <select id="sortFilter">
+          <option value="oldest">最早发布</option>
+          <option value="newest">最新发布</option>
+          <option value="startTime">开始时间</option>
+          <option value="points">积分高低</option>
+          <option value="participants">参与人数</option>
+        </select>
+      </div>
+      <div class="search-group">
+        <input type="text" id="searchInput" placeholder="搜索活动名称、社团、地点...">
+        <i class="fas fa-search"></i>
+      </div>
+    </div>
+    <div id="activityList" class="activity-list">
+      <!-- 活动列表将通过JavaScript动态添加 -->
+    </div>
+  </div>
+
+  <!-- 审核模态框 -->
+  <div id="reviewModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>活动详情</h2>
+        <button class="close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="activityDetails"></div>
+      </div>
+      <div class="modal-actions">
+        <button id="approveBtn" class="btn btn-primary"
+          onclick="handleReview('approve', this.closest('.modal').dataset.activityId)">
+          <i class="fas fa-check"></i> 通过
+        </button>
+        <button id="rejectBtn" class="btn btn-danger"
+          onclick="handleReview('reject', this.closest('.modal').dataset.activityId)">
+          <i class="fas fa-times"></i> 拒绝
+        </button>
+        <button id="cancelBtn" class="btn btn-secondary">
+          <i class="fas fa-times"></i> 取消
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 提示框 -->
+  <div class="toast" id="toast"></div>
+
+  <!-- 加载动画 -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/admin-review.js"></script>
+</body>
+
+</html>

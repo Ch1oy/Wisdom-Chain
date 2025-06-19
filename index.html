@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 - 校内社团活动积分系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="login-box animate-fade-in">
+      <div class="login-header">
+        <h1>欢迎登录</h1>
+        <p>智汇链-校内社团活动积分系统</p>
+      </div>
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <div class="input-group">
+            <i class="ri-user-line"></i>
+            <input type="text" id="username" name="username" placeholder="用户名/学号" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <i class="ri-lock-line"></i>
+            <input type="password" id="password" name="password" placeholder="密码" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <i class="ri-user-settings-line"></i>
+            <select id="role" name="role" required>
+              <option value="">请选择角色</option>
+              <option value="student" selected>学生</option>
+              <option value="clubLeader">社团负责人</option>
+              <option value="admin">管理员</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">
+            <i class="ri-login-box-line"></i>
+            登录
+          </button>
+        </div>
+      </form>
+      <div class="login-footer">
+        <!-- <p>默认密码：</p> -->
+        <ul>
+          <li>学生登录请先修改密码</li>
+          <li>初始密码为：123456</li>
+          <!-- <li>管理员：666666</li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="js/utils.js"></script>
+  <script src="js/login.js"></script>
+
+  <!-- 提示框 -->
+  <div class="toast" id="toast"></div>
+
+  <!-- 加载动画 -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+</body>
+
+</html>

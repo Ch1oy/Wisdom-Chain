@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的报名活动 - 校园社团活动积分系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="css/filter.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">
+        <img src="images/logo.png" alt="logo" class="logo">
+        智汇链
+      </a>
+      <div class="navbar-menu">
+        <a href="activities.html" class="navbar-item">
+          <i class="ri-calendar-event-line"></i>
+          所有活动
+        </a>
+        <a href="my-registrations.html" class="navbar-item active">
+          <i class="ri-list-check"></i>
+          我的活动
+        </a>
+        <div class="user-profile">
+          <img src="images/default-avatar.png" alt="用户头像" class="avatar" id="userAvatar">
+          <span id="userName"></span>
+          <div class="dropdown-content">
+            <a href="edit-profile.html" id="editProfile">
+              <i class="ri-user-settings-line"></i>
+              编辑资料
+            </a>
+            <a href="change-password.html" id="changePassword">
+              <i class="ri-lock-password-line"></i>
+              修改密码
+            </a>
+            <a href="index.html" id="logout">
+              <i class="ri-logout-box-line"></i>
+              退出登录
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="my-registrations">
+      <div class="container">
+        <h2 class="text-center mb-4">我的报名活动</h2>
+
+        <!-- 添加筛选按钮组 -->
+        <div class="anniu mb-4">
+          <button class="btn btn-primary" data-filter="all" id="btnAllActivities">
+            <i class="ri-list-check"></i> 全部活动 <span class="count" id="allCount">0</span>
+          </button>
+          <button class="btn btn-primary" data-filter="signed" id="btnSignedActivities">
+            <i class="ri-check-double-line"></i> 已签到 <span class="count" id="signedCount">0</span>
+          </button>
+          <button class="btn btn-primary active" data-filter="unsigned" id="btnUnsignedActivities">
+            <i class="ri-time-line"></i> 未签到 <span class="count" id="unsignedCount">0</span>
+          </button>
+        </div>
+
+        <div id="activityList" class="activity-list">
+          <!-- 用户报名参加的活动将通过JavaScript动态加载 -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 添加toast容器 -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/my-registrations.js"></script>
+</body>
+
+</html>

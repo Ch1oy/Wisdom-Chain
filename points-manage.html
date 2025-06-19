@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>积分管理 - 校园社团活动积分系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/points-manage.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-brand">
+                <img src="images/logo.png" alt="logo" class="logo">
+                智汇链
+            </a>
+            <div class="navbar-menu">
+                <a href="admin-review.html" class="navbar-item">
+                    <i class="ri-check-double-line"></i>
+                    活动审核
+                </a>
+                <a href="user-manage.html" class="navbar-item">
+                    <i class="ri-user-settings-line"></i>
+                    用户管理
+                </a>
+                <a href="points-manage.html" class="navbar-item active">
+                    <i class="ri-coins-line"></i>
+                    积分管理
+                </a>
+                <div class="user-profile">
+                    <img src="images/default-avatar.png" alt="用户头像" class="avatar" id="userAvatar">
+                    <span id="userName"></span>
+                    <div class="dropdown-content">
+                        <a href="edit-profile.html" id="editProfile">
+                            <i class="ri-user-settings-line"></i>
+                            编辑资料
+                        </a>
+                        <a href="change-password.html" id="changePassword">
+                            <i class="ri-lock-password-line"></i>
+                            修改密码
+                        </a>
+                        <a href="index.html" id="logout">
+                            <i class="ri-logout-box-line"></i>
+                            退出登录
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- 积分概览 -->
+        <section class="points-overview">
+            <div class="points-card">
+                <h3>总积分</h3>
+                <div class="value" id="totalPoints">0</div>
+            </div>
+            <div class="points-card">
+                <h3>平均积分</h3>
+                <div class="value" id="averagePoints">0</div>
+            </div>
+            <div class="points-card">
+                <h3>最高积分</h3>
+                <div class="value" id="maxPoints">0</div>
+            </div>
+            <div class="points-card">
+                <h3>最低积分</h3>
+                <div class="value" id="minPoints">0</div>
+            </div>
+        </section>
+
+        <!-- 积分趋势图 -->
+        <div class="points-trend">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3><i class="ri-line-chart-line"></i>积分趋势</h3>
+                    <div class="chart-controls">
+                        <select id="yearSelect" class="form-control">
+                            <option value="">选择年份</option>
+                        </select>
+                        <select id="monthSelect" class="form-control">
+                            <option value="">选择月份</option>
+                        </select>
+                    </div>
+                </div>
+                <canvas id="pointsTrendChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 违规处理 -->
+        <div class="violation-section">
+            <h3>违规处理</h3>
+            <div class="violation-list" id="violationList">
+                <!-- 违规记录将通过JavaScript动态添加 -->
+            </div>
+            <button id="addViolationBtn" class="btn-primary">添加违规记录</button>
+        </div>
+
+        <!-- 报告生成 -->
+        <div class="report-section">
+            <h3>活动效果报告</h3>
+            <div class="report-filters">
+                <select id="reportType">
+                    <option value="daily">日报</option>
+                    <option value="weekly">周报</option>
+                    <option value="monthly">月报</option>
+                </select>
+                <input type="date" id="reportDate">
+                <button id="generateReportBtn" class="btn-primary">生成报告</button>
+            </div>
+            <div id="reportContent" class="report-content">
+                <!-- 报告内容将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- 添加违规记录模态框 -->
+    <div id="violationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>添加违规记录</h2>
+            <form id="violationForm">
+                <div class="form-group">
+                    <label>用户</label>
+                    <select name="username" required>
+                        <!-- 用户列表将通过JavaScript动态添加 -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>违规类型</label>
+                    <select name="type" required>
+                        <option value="cheating">作弊</option>
+                        <option value="absent">无故缺席</option>
+                        <option value="disruption">扰乱秩序</option>
+                        <option value="other">其他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>违规描述</label>
+                    <textarea name="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>扣除积分</label>
+                    <input type="number" name="points" min="1" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">提交</button>
+                    <button type="button" class="btn-secondary" id="cancelViolationBtn">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/points-manage.js"></script>
+</body>
+
+</html>

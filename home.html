@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>主页 - 校内社团活动积分系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <style>
+    /* ...原有样式... */
+    .leaderboard-tables-wrapper {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .leaderboard-table-box {
+      flex: 1 1 350px;
+      min-width: 320px;
+      max-width: 480px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      padding: 1.2rem 1rem 1.5rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .leaderboard-table-title {
+      text-align: center;
+      font-size: 1.15rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #1976d2;
+      letter-spacing: 1px;
+    }
+
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 1.5rem;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+      padding: 0.8rem 1rem;
+      text-align: center;
+      border: none !important;
+    }
+
+    .leaderboard-table th {
+      background: linear-gradient(90deg, #2196f3 0%, #64b5f6 100%);
+      color: #fff;
+      font-size: 1.13rem;
+      letter-spacing: 2px;
+      font-weight: bold;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      box-shadow: 0 2px 6px rgba(33, 150, 243, 0.08);
+      border-bottom: 2.5px solid #e3f2fd;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+    }
+
+    .leaderboard-table tr:nth-child(even) td {
+      background: #f5f7fa;
+    }
+
+    .leaderboard-table tr {
+      transition: background 0.2s;
+    }
+
+    .leaderboard-table tr:hover td {
+      background: #e3f2fd;
+    }
+
+    .leaderboard-table td {
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .leaderboard-table tr[style*="color:#1976d2"] td {
+      background: #e3f2fd !important;
+      color: #1976d2;
+      font-weight: bold;
+    }
+
+    .leaderboard-table td:first-child {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .leaderboard-user {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      justify-content: center;
+      position: relative;
+    }
+
+    .leaderboard-user img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e3f2fd;
+      background: #fff;
+    }
+
+    .leaderboard-user .user-id {
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      font-size: 1rem;
+      color: #333;
+      display: flex;
+      align-items: center;
+    }
+
+    .my-badge {
+      display: inline-block;
+      background: #1976d2;
+      color: #fff;
+      font-size: 0.85em;
+      border-radius: 10px;
+      padding: 0.1em 0.7em;
+      margin-left: 0.5em;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 1px 3px rgba(25, 118, 210, 0.08);
+      vertical-align: middle;
+    }
+
+    @media (max-width: 600px) {
+
+      .leaderboard-table th,
+      .leaderboard-table td {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.95rem;
+      }
+
+      .leaderboard-user img {
+        width: 28px;
+        height: 28px;
+      }
+    }
+
+    .first-place td {
+      background: #ffe082 !important;
+      color: #b78600 !important;
+      font-weight: bold;
+    }
+
+    .second-place td {
+      background: #e0e0e0 !important;
+      color: #757575 !important;
+      font-weight: bold;
+    }
+
+    .third-place td {
+      background: #ffcc80 !important;
+      color: #b26a00 !important;
+      font-weight: bold;
+    }
+
+    .rank-medal {
+      font-size: 1.3em;
+      margin-right: 0.3em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">
+        <img src="images/logo.png" alt="logo" class="logo">
+        智汇链
+      </a>
+      <div class="navbar-menu">
+        <a href="#" class="navbar-item" id="activitiesLink">
+          <i class="ri-calendar-event-line"></i>
+          活动列表
+        </a>
+        <a href="#" class="navbar-item" id="myPointsLink">
+          <i class="ri-coins-line"></i>
+          我的积分
+        </a>
+        <div class="user-profile">
+          <img src="images/default-avatar.png" alt="用户头像" class="avatar" id="userAvatar">
+          <span id="userName"></span>
+          <div class="dropdown-content">
+            <a href="#" id="editProfile">
+              <i class="ri-user-settings-line"></i>
+              编辑资料
+            </a>
+            <a href="#" id="changePassword">
+              <i class="ri-lock-password-line"></i>
+              修改密码
+            </a>
+            <a href="#" id="logout">
+              <i class="ri-logout-box-line"></i>
+              退出登录
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="welcome-section card animate-fade-in">
+      <div class="welcome-content">
+        <h2>欢迎回来，<span id="welcomeUserName"></span></h2>
+        <div class="points-summary">
+          <div class="points-card">
+            <i class="ri-coins-line"></i>
+            <div class="points-info">
+              <span class="points-label">当前积分</span>
+              <span class="points-value" id="currentPoints">0</span>
+            </div>
+          </div>
+          <div class="points-card">
+            <i class="ri-trophy-line"></i>
+            <div class="points-info">
+              <span class="points-label">总获得积分</span>
+              <span class="points-value" id="totalEarnedPoints">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="activities-section">
+      <div class="section-header">
+        <h3>积分排行榜</h3>
+      </div>
+      <div class="leaderboard-list" id="leaderboardList">
+        <!-- 排行榜内容将通过JavaScript动态添加 -->
+      </div>
+    </div>
+  </main>
+
+  <!-- 提示框 -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // 检查是否已登录
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      if (!userInfo) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      // 更新用户信息显示
+      const userNameElement = document.getElementById('userName');
+      if (userNameElement) {
+        userNameElement.textContent = userInfo.username;
+      }
+
+      const welcomeUserNameElement = document.getElementById('welcomeUserName');
+      if (welcomeUserNameElement) {
+        const users = JSON.parse(localStorage.getItem('users')) || {};
+        const userDetails = users[userInfo.username] || {};
+        welcomeUserNameElement.textContent = userDetails.name || userInfo.username;
+      }
+
+      const userAvatar = document.getElementById('userAvatar');
+      if (userAvatar) {
+        const users = JSON.parse(localStorage.getItem('users')) || {};
+        const userDetails = users[userInfo.username] || {};
+        if (userDetails.avatar) {
+          userAvatar.src = userDetails.avatar;
+        }
+      }
+
+      // 更新当前积分显示
+      const currentPointsElement = document.getElementById('currentPoints');
+      const totalEarnedPointsElement = document.getElementById('totalEarnedPoints');
+      if (currentPointsElement && totalEarnedPointsElement) {
+        const activities = JSON.parse(localStorage.getItem('activities')) || [];
+        let totalPoints = 0;
+        let totalEarnedPoints = 0;
+
+        // 从所有活动的checkIns数组中计算总积分
+        activities.forEach(activity => {
+          if (activity.checkIns && Array.isArray(activity.checkIns)) {
+            activity.checkIns.forEach(checkIn => {
+              if (checkIn.username === userInfo.username) {
+                totalPoints += activity.points || 0;
+                // 只累加正积分作为总获得积分
+                if (activity.points > 0) {
+                  totalEarnedPoints += activity.points;
+                }
+              }
+            });
+          }
+        });
+
+        currentPointsElement.textContent = totalPoints;
+        totalEarnedPointsElement.textContent = totalEarnedPoints;
+      }
+
+      // ====== 新增：积分排行榜（月榜+总榜） ======
+      const leaderboardList = document.getElementById('leaderboardList');
+      if (leaderboardList) {
+        const users = JSON.parse(localStorage.getItem('users')) || {};
+        const activities = JSON.parse(localStorage.getItem('activities')) || [];
+        // 统计每个学生用户的总积分和本月积分
+        const userPointsMap = {};
+        const userMonthPointsMap = {};
+        const now = new Date();
+        const thisMonth = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+        Object.keys(users).forEach(username => {
+          const user = users[username];
+          if (!user || user.role !== 'student') return;
+          let totalPoints = 0;
+          let monthPoints = 0;
+          activities.forEach(activity => {
+            if (activity.checkIns && Array.isArray(activity.checkIns)) {
+              activity.checkIns.forEach(checkIn => {
+                if (checkIn.username === username) {
+                  // 只累加正积分
+                  if (activity.points > 0) {
+                    totalPoints += activity.points;
+                    // 判断是否为本月（兼容各种时间格式，支持checkInTime字段）
+                    const checkTime = checkIn.checkInTime || checkIn.time;
+                    if (checkTime) {
+                      const d = new Date(checkTime);
+                      if (!isNaN(d)) {
+                        const y = d.getFullYear();
+                        const m = d.getMonth() + 1;
+                        if (y === now.getFullYear() && m === (now.getMonth() + 1)) {
+                          monthPoints += activity.points;
+                        }
+                      }
+                    }
+                  }
+                }
+              });
+            }
+          });
+          userPointsMap[username] = totalPoints;
+          userMonthPointsMap[username] = monthPoints;
+        });
+        // 排序，取前10名
+        const sortedTotal = Object.entries(userPointsMap)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 10);
+        const sortedMonth = Object.entries(userMonthPointsMap)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 10);
+        // 生成HTML
+        function getRankClass(idx) {
+          if (idx === 0) return 'first-place';
+          if (idx === 1) return 'second-place';
+          if (idx === 2) return 'third-place';
+          return '';
+        }
+        function getMedal(idx) {
+          if (idx === 0) return '<span class="rank-medal">🥇</span>';
+          if (idx === 1) return '<span class="rank-medal">🥈</span>';
+          if (idx === 2) return '<span class="rank-medal">🥉</span>';
+          return '';
+        }
+        function getUserCell(username, avatar) {
+          let html = `<img src="${avatar}" alt="头像"><span class="user-id">${username}`;
+          if (username === userInfo.username) html += '<span class="my-badge">我</span>';
+          html += '</span>';
+          return `<div class="leaderboard-user">${html}</div>`;
+        }
+
+        // 处理同分并列排名的函数
+        function processRankings(sortedData) {
+          let currentRank = 1;
+          let currentPoints = null;
+          let sameRankCount = 0;
+
+          return sortedData.map(([username, points], idx) => {
+            if (points !== currentPoints) {
+              currentRank = idx + 1;
+              currentPoints = points;
+              sameRankCount = 0;
+            } else {
+              sameRankCount++;
+            }
+
+            return {
+              username,
+              points,
+              rank: currentRank
+            };
+          });
+        }
+
+        // 处理月榜和总榜的排名
+        const monthRankings = processRankings(sortedMonth);
+        const totalRankings = processRankings(sortedTotal);
+
+        leaderboardList.innerHTML = `
+          <div class="leaderboard-tables-wrapper">
+            <div class="leaderboard-table-box">
+              <div class="leaderboard-table-title">本月积分榜</div>
+              <table class="leaderboard-table">
+                <thead>
+                  <tr><th>排名</th><th>用户</th><th>积分</th></tr>
+                </thead>
+                <tbody>
+                  ${monthRankings.map(({ username, points, rank }) => {
+          const user = users[username] || {};
+          const avatar = user.avatar ? user.avatar : 'images/default-avatar.png';
+          return `
+                      <tr class="${getRankClass(rank - 1)}">
+                        <td>${getMedal(rank - 1)}${rank}</td>
+                        <td>
+                          ${getUserCell(username, avatar)}
+                        </td>
+                        <td>${points}</td>
+                      </tr>
+                    `;
+        }).join('')}
+                </tbody>
+              </table>
+            </div>
+            <div class="leaderboard-table-box">
+              <div class="leaderboard-table-title">总积分榜</div>
+              <table class="leaderboard-table">
+                <thead>
+                  <tr><th>排名</th><th>用户</th><th>积分</th></tr>
+                </thead>
+                <tbody>
+                  ${totalRankings.map(({ username, points, rank }) => {
+          const user = users[username] || {};
+          const avatar = user.avatar ? user.avatar : 'images/default-avatar.png';
+          return `
+                      <tr class="${getRankClass(rank - 1)}">
+                        <td>${getMedal(rank - 1)}${rank}</td>
+                        <td>
+                          ${getUserCell(username, avatar)}
+                        </td>
+                        <td>${points}</td>
+                      </tr>
+                    `;
+        }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+      // ====== end ======
+    });
+  </script>
+</body>
+
+</html>

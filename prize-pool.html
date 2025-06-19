@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>奖池管理 - 校内社团活动积分系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/prize-pool.css"> <!-- 奖池管理样式 -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">
+        <img src="images/logo.png" alt="logo" class="logo">
+        智汇链
+      </a>
+      <div class="navbar-menu">
+        <!-- 导航链接会动态或手动添加，确保管理员导航链接存在 -->
+        <a href="admin-dashboard.html" class="navbar-item">
+          <i class="ri-dashboard-line"></i>
+          <span>控制台</span>
+        </a>
+        <a href="prize-pool.html" class="navbar-item active">
+          <i class="ri-gift-line"></i>
+          <span>奖池管理</span>
+        </a>
+        <!-- ... 其他管理员导航链接 ... -->
+        <div class="user-profile">
+          <img src="images/default-avatar.png" alt="用户头像" class="avatar" id="userAvatar">
+          <span id="userName"></span>
+          <div class="dropdown-content">
+            <a href="edit-profile.html" id="editProfile">
+              <i class="ri-user-settings-line"></i>
+              编辑资料
+            </a>
+            <a href="change-password.html" id="changePassword">
+              <i class="ri-lock-password-line"></i>
+              修改密码
+            </a>
+            <a href="index.html" id="logout">
+              <i class="ri-logout-box-line"></i>
+              退出登录
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="page-header card animate-fade-in">
+      <h1>奖池管理</h1>
+      <p>管理可供学生使用积分抽取的奖品</p>
+    </div>
+
+    <div class="prize-management-container card">
+      <div class="section-header">
+        <h3>奖品列表</h3>
+        <button class="btn btn-primary" id="addPrizeBtn">
+          <i class="ri-add-circle-line"></i> 添加新奖品
+        </button>
+      </div>
+
+      <table class="prize-table" id="prizeTable">
+        <thead>
+          <tr>
+            <th>图片</th>
+            <th>奖品名称</th>
+            <th>中奖概率 (%)</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 奖品列表将通过JavaScript动态加载 -->
+        </tbody>
+      </table>
+
+    </div>
+
+    <!-- 添加/编辑奖品的模态框 -->
+    <div class="modal" id="prizeModal" style="display: none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle">添加奖品</h2>
+          <button class="close-btn" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-body">
+          <form id="prizeForm">
+            <input type="hidden" id="prizeId">
+            <div class="form-group">
+              <label for="prizeName">奖品名称</label>
+              <input type="text" id="prizeName" required>
+            </div>
+            <div class="form-group">
+              <label for="prizeImage">奖品图片</label>
+              <input type="file" id="prizeImage" accept="image/*">
+              <div id="imagePreview" style="margin-top: 10px;"></div>
+            </div>
+            <div class="form-group">
+              <label for="prizeProbability">中奖概率 (%)</label>
+              <input type="number" id="prizeProbability" min="0.1" max="100" step="0.1" required>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-secondary" onclick="closeModal()">取消</button>
+              <button type="submit" class="btn btn-primary" id="savePrizeBtn">保存</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script> <!-- 假设有公共navbar.js -->
+  <script src="js/prize-pool.js"></script>
+</body>
+
+</html>

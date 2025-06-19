@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活动签到管理 - 校内社团活动积分系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/check-in-manage.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">
+        <img src="images/logo.png" alt="logo" class="logo">
+        智汇链
+      </a>
+      <div class="navbar-menu">
+        <a href="#" class="navbar-item" id="homeLink">
+          <i class="ri-home-line"></i>
+          首页
+        </a>
+        <a href="#" class="navbar-item" id="activitiesLink">
+          <i class="ri-calendar-event-line"></i>
+          活动列表
+        </a>
+        <div class="user-profile">
+          <img src="images/default-avatar.png" alt="用户头像" class="avatar" id="userAvatar">
+          <span id="userName"></span>
+          <div class="dropdown-content">
+            <a href="#" id="editProfile">
+              <i class="ri-user-settings-line"></i>
+              编辑资料
+            </a>
+            <a href="#" id="changePassword">
+              <i class="ri-lock-password-line"></i>
+              修改密码
+            </a>
+            <a href="#" id="logout">
+              <i class="ri-logout-box-line"></i>
+              退出登录
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- <div class="page-header card animate-fade-in">
+      <h1>活动签到管理</h1>
+      <p>管理活动签到并发放积分</p>
+    </div> -->
+
+    <div class="filter-section card">
+      <div class="filter-options">
+        <div class="filter-group">
+          <label>活动状态：</label>
+          <div class="filter-buttons">
+            <button class="filter-btn active" data-status="all">全部</button>
+            <button class="filter-btn" data-status="ongoing">进行中</button>
+            <button class="filter-btn" data-status="ended">已结束</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="activities-grid" id="activitiesGrid">
+      <!-- 活动卡片将通过JavaScript动态添加 -->
+    </div>
+
+    <!-- 签到模态框 -->
+    <div class="modal" id="checkInModal">
+      <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2 id="modalActivityName"></h2>
+        <div class="check-in-list" id="checkInList">
+          <!-- 签到列表将通过JavaScript动态添加 -->
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="saveCheckIn">
+            <i class="ri-save-line"></i>
+            保存签到
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- 加载动画 -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/check-in-manage.js"></script>
+</body>
+
+</html>

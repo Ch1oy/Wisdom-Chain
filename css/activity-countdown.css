@@ -1,0 +1,178 @@
+/* 活动倒计时样式 */
+.countdown-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(74, 144, 226, 0.1);
+}
+
+.countdown-label {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.countdown-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  /* 淡灰色背景 */
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  /* 浅边框 */
+}
+
+.countdown-label {
+  font-size: 0.9rem;
+  color: #6c757d;
+  /* 暗灰色文字 */
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.countdown-label i {
+  color: #3498db;
+  /* 主题蓝色图标 */
+}
+
+.countdown-value {
+  display: flex;
+  /* 横向排列 */
+  gap: 15px;
+  /* 各时间单位之间的间隔 */
+  align-items: center;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  /* 数字和单位垂直排列 */
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  /* 深色数字 */
+}
+
+.countdown-item span:last-child {
+  /* 单位文字样式 */
+  font-size: 0.8rem;
+  font-weight: normal;
+  color: #555;
+  /* 稍浅的单位文字颜色 */
+}
+
+/* 当倒计时小于一小时时的样式 */
+.countdown-value.countdown-danger span {
+  color: #e74c3c !important;
+  /* 将红色应用到所有的子span元素 */
+}
+
+/* 可以选择性地让数字更突出 */
+.countdown-value.countdown-danger .countdown-item span:first-child {
+  font-weight: bold;
+}
+
+/* 当倒计时结束时的样式（可选）*/
+.countdown-ended .countdown-value {
+  color: #e74c3c;
+  /* 倒计时结束时显示为红色 */
+}
+
+/* 小屏幕适应 */
+@media (max-width: 576px) {
+  .countdown-value {
+    gap: 10px;
+    /* 小屏幕下减小间隔 */
+  }
+
+  .countdown-item {
+    font-size: 1rem;
+  }
+
+  .countdown-item span:last-child {
+    font-size: 0.7rem;
+  }
+}
+
+/* 倒计时状态样式 */
+.countdown-status {
+  margin-left: auto;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.countdown-status.upcoming {
+  background: rgba(52, 152, 219, 0.1);
+  color: #3498db;
+}
+
+.countdown-status.ongoing {
+  background: rgba(46, 204, 113, 0.1);
+  color: #2ecc71;
+}
+
+.countdown-status.ended {
+  background: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+}
+
+/* 动画效果 */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.countdown-number {
+  animation: pulse 2s infinite;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .countdown-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .countdown-timer {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .countdown-item {
+    min-width: 50px;
+  }
+
+  .countdown-number {
+    font-size: 1.5rem;
+    min-width: 40px;
+  }
+
+  .countdown-status {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+}

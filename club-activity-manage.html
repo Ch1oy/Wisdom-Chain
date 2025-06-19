@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活动管理 - 校园社团活动积分系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/club-activity-manage.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">
+        <!-- <i class="ri-group-line"></i> -->
+        <img src="images/logo.png" alt="logo" class="logo">
+        智汇链
+      </a>
+      <div class="navbar-menu">
+        <a href="club-activity-manage.html" class="navbar-item active">
+          <i class="ri-calendar-event-line"></i>
+          活动管理
+        </a>
+        <a href="publish-activity.html" class="navbar-item">
+          <i class="ri-add-circle-line"></i>
+          发布新活动
+        </a>
+        <a href="my-activities.html" class="navbar-item">
+          <i class="ri-list-check"></i>
+          我的发布
+        </a>
+        <a href="registration-manage.html" class="navbar-item">
+          <i class="ri-user-add-line"></i>
+          报名管理
+        </a>
+       
+        <div class="user-profile">
+          <img src="images/default-avatar.png" alt="用户头像" class="avatar" id="userAvatar">
+          <span id="userName"></span>
+          <div class="dropdown-content">
+            <a href="edit-profile.html" id="editProfile">
+              <i class="ri-user-settings-line"></i>
+              编辑资料
+            </a>
+            <a href="change-password.html" id="changePassword">
+              <i class="ri-lock-password-line"></i>
+              修改密码
+            </a>
+            <a href="index.html" id="logout">
+              <i class="ri-logout-box-line"></i>
+              退出登录
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <!-- <h2>活动数据看板</h2> -->
+      <input type="month" id="monthPicker" style="margin-left:20px;">
+    </div>
+    <div class="dashboard-cards">
+      <div class="dashboard-card">
+        <div class="card-icon">
+          <i class="ri-calendar-event-line"></i>
+        </div>
+        <div class="card-content">
+          <h3>活动总数</h3>
+          <p id="totalActivities">0</p>
+        </div>
+      </div>
+      <div class="dashboard-card">
+        <div class="card-icon">
+          <i class="ri-checkbox-circle-line"></i>
+        </div>
+        <div class="card-content">
+          <h3>已通过活动</h3>
+          <p id="approvedActivities">0</p>
+        </div>
+      </div>
+      <div class="dashboard-card">
+        <div class="card-icon">
+          <i class="ri-user-line"></i>
+        </div>
+        <div class="card-content">
+          <h3>总参与人数</h3>
+          <p id="totalParticipants">0</p>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard-charts">
+      <div class="chart-container">
+        <h3>活动状态分布</h3>
+        <canvas id="statusChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <h3>活动时间分布</h3>
+        <canvas id="timeChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/club-activity-manage.js"></script>
+</body>
+
+</html>
